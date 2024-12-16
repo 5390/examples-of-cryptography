@@ -3,6 +3,7 @@ package hyperledger
 import (
 	"encoding/json"
 	"fmt"
+	"sync"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
 )
@@ -21,7 +22,7 @@ type SmartContract struct {
 }
 
 // InitLedger initializes the ledger with predefined assets when the chaincode is first deployed.
-// It creates two assets: "asset1" and "asset2".
+// It creates two assets: "asset1" and "asset2" concurrently using goroutines.
 func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) error {
 	// Predefined assets
 	assets := []Asset{
@@ -29,14 +30,23 @@ func (s *SmartContract) InitLedger(ctx contractapi.TransactionContextInterface) 
 		{ID: "asset2", Name: "Asset Two"},
 	}
 
-	// Loop through each asset and create it in the ledger.
+	var wg sync.WaitGroup // To wait for all goroutines to finish
+
+	// Loop through each asset and create it concurrently using goroutines
 	for _, asset := range assets {
-		err := s.CreateAsset(ctx, asset.ID, asset.Name)
-		if err != nil {
-			return err // Return an error if asset creation fails
-		}
+		wg.Add(1)
+		go func(asset Asset) {
+			defer wg.Done()
+			err := s.CreateAsset(ctx, asset.ID, asset.Name)
+			if err != nil {
+				fmt.Printf("Error creating asset %s: %v\n", asset.ID, err)
+			}
+		}(asset)
 	}
-	return nil // Return nil if everything is successful
+
+	// Wait for all goroutines to finish before returning
+	wg.Wait()
+	return nil
 }
 
 // CreateAsset adds a new asset to the ledger.

@@ -76,7 +76,36 @@ func main() {
 	postquantumcryptography.KyberExample()
 
 	fmt.Println("==================================== Blockchain Hyperledger Fabric Example ==============================")
-	// FabricExample demonstrates how to instantiate and start the chaincode using the SmartContract.
+	// FabricExample initializes and starts the Hyperledger Fabric chaincode.
+	// This function creates an instance of the SmartContract and starts it, enabling it to process transactions.
+	//
+	// Steps performed:
+	// 1. Creates a new chaincode instance using the `SmartContract` implementation.
+	// 2. Handles errors during chaincode creation or startup.
+	// 3. Starts the chaincode, allowing the Fabric network to invoke its functions.
+	//
+	// Usage:
+	// - This function is the entry point for deploying the chaincode.
+	// - Once started, the chaincode listens for transaction proposals from peers.
+	//
+	// Note: If there is an error during initialization or startup, it prints the error and exits.
 	hyperledger.FabricExample()
+
+	fmt.Println("==================================== Blockchain Hyperledger Solana Example ==============================")
+	// SolanaExample simulates a simplified Solana consensus process using leader rotation and voting.
+	// It demonstrates:
+	// 1. **Leader Rotation**: Validators take turns acting as leaders to propose blocks. This mimics Solana's leader-based Proof of History (PoH) mechanism.
+	// 2. **Voting**: Validators cast votes (yes/no) on the proposed blocks, simulating Solana's Tower BFT consensus mechanism.
+	//
+	// The function performs the following steps:
+	// - Creates a set of validators, each identified by a unique ID.
+	// - Simulates leader rotation, where each validator acts as the leader to generate a block.
+	// - Simulates voting, where all validators cast votes on the proposed blocks.
+	// - Outputs the status of block generation and voting to showcase the consensus flow.
+	//
+	// This simulation uses Go's concurrency model (goroutines and WaitGroup) to mimic the parallelism and real-time behavior of validators in a Solana-like blockchain network.
+	//
+	// Note: This is a simplified example intended for learning purposes and does not reflect the full complexity of Solana's implementation.
+	hyperledger.SolanaExample()
 
 }
