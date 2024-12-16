@@ -3,7 +3,7 @@ The code is for a Hyperledger Fabric chaincode implementation written in Go. Hyp
 
 The chaincode performs operations on a simple ledger that stores assets. Each asset has two fields:
 
-**ID**: A unique identifier for the asset.
+**ID**: A unique identifier for the asset. 
 **Name**: The name or description of the asset.
 The chaincode exposes methods to initialize the ledger, create assets, query assets, and update assets.
 
