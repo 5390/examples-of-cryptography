@@ -22,9 +22,10 @@ Examples: SHA-256, MD5.
 
 1. Symmetric Key Cryptography: AES
 
+```
 func encryptAES(key []byte, text string) (string, error) { /* AES Encryption Logic */ }
 func decryptAES(key []byte, cipherText string) (string, error) { /* AES Decryption Logic */ }
-
+```
 2. Asymmetric Key Cryptography: RSA
 //RSA Key Pair Generation and Encryption.
 privateKey, _ := rsa.GenerateKey(rand.Reader, 2048)
